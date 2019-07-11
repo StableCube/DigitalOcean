@@ -84,17 +84,21 @@ namespace StableCube.DigitalOcean.DotNetClient
             string doDropletSize, 
             string poolName, 
             int nodeCount, 
-            List<string> tags)
+            List<string> tags = null)
         {
             string endpoint = $"/v2/kubernetes/clusters/{clusterId}/node_pools";
 
-            var result = await _client.PostAsync(endpoint, EncodeContent(new CreateNodePoolInput()
+            var data = new CreateNodePoolInput()
             {
                 Size = doDropletSize,
                 Name = poolName,
-                Count = nodeCount,
-                Tags = tags
-            }));
+                Count = nodeCount
+            };
+
+            if(tags != null)
+                data.Tags = tags;
+
+            var result = await _client.PostAsync(endpoint, EncodeContent(data));
 
             string jsonResult = await result.Content.ReadAsStringAsync();
 
@@ -112,16 +116,20 @@ namespace StableCube.DigitalOcean.DotNetClient
             string nodePoolId,
             string poolName, 
             int nodeCount, 
-            List<string> tags)
+            List<string> tags = null)
         {
             string endpoint = $"/v2/kubernetes/clusters/{clusterId}/node_pools/{nodePoolId}";
 
-            var result = await _client.PutAsync(endpoint, EncodeContent(new UpdateNodePoolInput()
+            var data = new UpdateNodePoolInput()
             {
                 Name = poolName,
-                Count = nodeCount,
-                Tags = tags
-            }));
+                Count = nodeCount
+            };
+
+            if(tags != null)
+                data.Tags = tags;
+
+            var result = await _client.PutAsync(endpoint, EncodeContent(data));
 
             string jsonResult = await result.Content.ReadAsStringAsync();
 

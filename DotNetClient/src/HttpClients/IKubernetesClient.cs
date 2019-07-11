@@ -17,14 +17,14 @@ namespace StableCube.DigitalOcean.DotNetClient
             string doDropletSize, 
             string poolName, 
             int nodeCount, 
-            List<string> tags);
+            List<string> tags = null);
 
         Task<NodePool> UpdateNodePoolAsync(
             string clusterId,
             string nodePoolId,
             string poolName, 
             int nodeCount, 
-            List<string> tags);
+            List<string> tags = null);
 
         Task DeleteNodeAsync(
             string clusterId,
