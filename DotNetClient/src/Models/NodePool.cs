@@ -32,13 +32,13 @@ namespace StableCube.DigitalOcean.DotNetClient
         /// An array containing the tags applied to the node pool. 
         /// All node pools are automatically tagged "k8s," "k8s-worker," and "k8s:$K8S_CLUSTER_ID."
         /// </summary>
-        [JsonProperty("tags")]
-        public string[] Tags { get; set; }
+        [JsonProperty("tags", NullValueHandling = NullValueHandling.Ignore)]
+        public string[] Tags { get; set; } = new string[0];
 
         /// <summary>
         /// An object specifying the details of a specific worker node in a node pool
         /// </summary>
-        [JsonProperty("nodes")]
-        public Node[] Nodes { get; set; }
+        [JsonProperty("nodes", NullValueHandling = NullValueHandling.Ignore)]
+        public Node[] Nodes { get; set; } = new Node[0];
     }
 }

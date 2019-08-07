@@ -108,7 +108,9 @@ namespace StableCube.DigitalOcean.DotNetClient
                 throw new DigitalOceanApiCallException(error);
             }
 
-            return JsonConvert.DeserializeObject<NodePoolResult>(jsonResult).NodePool;
+            var nodePool = JsonConvert.DeserializeObject<NodePoolResult>(jsonResult).NodePool;
+
+            return nodePool;
         }
 
         public async Task<NodePool> UpdateNodePoolAsync(
@@ -139,7 +141,9 @@ namespace StableCube.DigitalOcean.DotNetClient
                 throw new DigitalOceanApiCallException(error);
             }
 
-            return JsonConvert.DeserializeObject<NodePoolResult>(jsonResult).NodePool;
+            var nodePool = JsonConvert.DeserializeObject<NodePoolResult>(jsonResult).NodePool;
+
+            return nodePool;
         }
 
         private StringContent EncodeContent(object input)

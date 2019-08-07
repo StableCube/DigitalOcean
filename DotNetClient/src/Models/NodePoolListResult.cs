@@ -5,7 +5,7 @@ namespace StableCube.DigitalOcean.DotNetClient
 {
     public class NodePoolListResult
     {
-        [JsonProperty("node_pools")]
-        public NodePool[] NodePools { get; set; }
+        [JsonProperty("node_pools", NullValueHandling = NullValueHandling.Ignore)]
+        public NodePool[] NodePools { get; set; } = new NodePool[0];
     }
 }
