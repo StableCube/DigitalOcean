@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
@@ -26,21 +27,27 @@ namespace StableCube.DigitalOcean.DotNetClient
         /// </summary>
         /// <param name="clusterId"></param>
         /// <returns></returns>
-        public async Task<HttpContent> GetKubeConfigAsync(string clusterId)
+        public async Task<HttpContent> GetKubeConfigAsync(
+            string clusterId,
+            CancellationToken cancellationToken = default(CancellationToken)
+        )
         {
             string endpoint = $"/v2/kubernetes/clusters/{clusterId}/kubeconfig";
 
-            var result = await _client.GetAsync(endpoint);
+            var result = await _client.GetAsync(endpoint, cancellationToken);
             result.EnsureSuccessStatusCode();
 
             return result.Content;
         }
 
-        public async Task<NodePool[]> ListNodePoolsAsync(string clusterId)
+        public async Task<NodePool[]> ListNodePoolsAsync(
+            string clusterId,
+            CancellationToken cancellationToken = default(CancellationToken)
+        )
         {
             string endpoint = $"/v2/kubernetes/clusters/{clusterId}/node_pools";
 
-            var result = await _client.GetAsync(endpoint);
+            var result = await _client.GetAsync(endpoint, cancellationToken);
             string jsonResult = await result.Content.ReadAsStringAsync();
 
             if(!result.IsSuccessStatusCode)
@@ -52,11 +59,15 @@ namespace StableCube.DigitalOcean.DotNetClient
             return JsonConvert.DeserializeObject<NodePoolListResult>(jsonResult).NodePools;
         }
 
-        public async Task<NodePool> GetNodePoolAsync(string clusterId, string nodePoolId)
+        public async Task<NodePool> GetNodePoolAsync(
+            string clusterId, 
+            string nodePoolId,
+            CancellationToken cancellationToken = default(CancellationToken)
+        )
         {
             string endpoint = $"/v2/kubernetes/clusters/{clusterId}/node_pools/{nodePoolId}";
 
-            var result = await _client.GetAsync(endpoint);
+            var result = await _client.GetAsync(endpoint, cancellationToken);
             string jsonResult = await result.Content.ReadAsStringAsync();
 
             if(!result.IsSuccessStatusCode)
@@ -84,7 +95,9 @@ namespace StableCube.DigitalOcean.DotNetClient
             string doDropletSize, 
             string poolName, 
             int nodeCount, 
-            List<string> tags = null)
+            List<string> tags = null,
+            CancellationToken cancellationToken = default(CancellationToken)
+        )
         {
             string endpoint = $"/v2/kubernetes/clusters/{clusterId}/node_pools";
 
@@ -98,7 +111,7 @@ namespace StableCube.DigitalOcean.DotNetClient
             if(tags != null)
                 data.Tags = tags;
 
-            var result = await _client.PostAsync(endpoint, EncodeContent(data));
+            var result = await _client.PostAsync(endpoint, EncodeContent(data), cancellationToken);
 
             string jsonResult = await result.Content.ReadAsStringAsync();
 
@@ -118,7 +131,9 @@ namespace StableCube.DigitalOcean.DotNetClient
             string nodePoolId,
             string poolName, 
             int nodeCount, 
-            List<string> tags = null)
+            List<string> tags = null,
+            CancellationToken cancellationToken = default(CancellationToken)
+        )
         {
             string endpoint = $"/v2/kubernetes/clusters/{clusterId}/node_pools/{nodePoolId}";
 
@@ -131,7 +146,7 @@ namespace StableCube.DigitalOcean.DotNetClient
             if(tags != null)
                 data.Tags = tags;
 
-            var result = await _client.PutAsync(endpoint, EncodeContent(data));
+            var result = await _client.PutAsync(endpoint, EncodeContent(data), cancellationToken);
 
             string jsonResult = await result.Content.ReadAsStringAsync();
 
@@ -157,12 +172,13 @@ namespace StableCube.DigitalOcean.DotNetClient
         public async Task DeleteNodeAsync(
             string clusterId,
             string nodePoolId,
-            string nodeId
+            string nodeId,
+            CancellationToken cancellationToken = default(CancellationToken)
         )
         {
             string endpoint = $"/v2/kubernetes/clusters/{clusterId}/node_pools/{nodePoolId}/nodes/{nodeId}";
 
-            var result = await _client.DeleteAsync(endpoint);
+            var result = await _client.DeleteAsync(endpoint, cancellationToken);
 
             string jsonResult = await result.Content.ReadAsStringAsync();
 
