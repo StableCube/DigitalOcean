@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace StableCube.DigitalOcean.DotNetClient
 {
-    public interface IKubernetesClient
+    public interface IKubernetesEndpoint
     {
         Task<HttpContent> GetKubeConfigAsync(
             string clusterId,

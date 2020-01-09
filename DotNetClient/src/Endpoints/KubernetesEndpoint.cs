@@ -8,18 +8,15 @@ using Newtonsoft.Json;
 
 namespace StableCube.DigitalOcean.DotNetClient
 {
-    public class KubernetesClient : IKubernetesClient
+    public class KubernetesEndpoint : IKubernetesEndpoint
     {
         private HttpClient _client;
-        private ClientOptions _options;
 
-        public KubernetesClient(
-            HttpClient client,
-            ClientOptions options
+        public KubernetesEndpoint(
+            HttpClient client
         )
         {
             _client = client;
-            _options = options;
         }
 
         /// <summary>

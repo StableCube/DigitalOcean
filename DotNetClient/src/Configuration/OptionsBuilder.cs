@@ -15,7 +15,7 @@ namespace StableCube.DigitalOcean.DotNetClient
 
             services.AddSingleton(options);
             
-            _services.AddHttpClient<IKubernetesClient, KubernetesClient>(clientConfig => {
+            _services.AddHttpClient<IDigitalOceanClient, DigitalOceanClient>(clientConfig => {
                 clientConfig.BaseAddress = new Uri("https://api.digitalocean.com");
                 clientConfig.DefaultRequestHeaders.Add("User-Agent", "StableCube.DigitalOceanClient");
                 clientConfig.DefaultRequestHeaders.Add("Authorization", $"Bearer {options.AccessToken}");
