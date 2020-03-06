@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <PackageId>StableCube.DigitalOcean.DotNetClient</PackageId>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Company>Stable Cube</Company>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Title>StableCube.DigitalOcean.DotNetClient</Title>
     <Description>DotNet client for the DigitalOcean api</Description>
     <IsPackable>true</IsPackable>

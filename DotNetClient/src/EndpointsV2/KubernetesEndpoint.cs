@@ -1,5 +1,3 @@
-using System;
-using System.Text;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,15 +6,10 @@ using Newtonsoft.Json;
 
 namespace StableCube.DigitalOcean.DotNetClient
 {
-    public class KubernetesEndpoint : IKubernetesEndpoint
+    public class KubernetesEndpoint : EndpointBase, IKubernetesEndpoint
     {
-        private HttpClient _client;
-
-        public KubernetesEndpoint(
-            HttpClient client
-        )
+        public KubernetesEndpoint(HttpClient client) : base(client)
         {
-            _client = client;
         }
 
         /// <summary>
@@ -156,14 +149,6 @@ namespace StableCube.DigitalOcean.DotNetClient
             var nodePool = JsonConvert.DeserializeObject<NodePoolResult>(jsonResult).NodePool;
 
             return nodePool;
-        }
-
-        private StringContent EncodeContent(object input)
-        {
-            return new StringContent(JsonConvert.SerializeObject(input, new JsonSerializerSettings()
-                {
-                    TypeNameHandling = TypeNameHandling.Auto
-                }), Encoding.UTF8, "application/json");
         }
 
         public async Task DeleteNodeAsync(
