@@ -8,6 +8,11 @@
     <Title>StableCube.DigitalOcean.DotNetClient</Title>
     <Description>DotNet client for the DigitalOcean api</Description>
     <IsPackable>true</IsPackable>
+    <LicenseUrl>https://opensource.org/licenses/MIT</LicenseUrl>
+    <RepositoryUrl>https://github.com/StableCube/DigitalOcean</RepositoryUrl>
+    <Copyright>Copyright 2021</Copyright>
+    <Authors>Zachary Boyet</Authors>
+    <Description>Client for the DigitalOcean api</Description>
   </PropertyGroup>
 
   <ItemGroup>
