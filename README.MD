@@ -41,7 +41,7 @@ public class ClientExample
         }
 
         // List droplets
-        DropletList droplets = await _doClient.DropletEndpoint
+        var droplets = await _doClient.DropletEndpoint
             .GetAllAsync(cancellationToken);
 
         foreach (var droplet in droplets)
